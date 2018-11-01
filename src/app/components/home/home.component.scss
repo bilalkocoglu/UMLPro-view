@@ -1,0 +1,67 @@
+.back {
+  height: 100%;
+  background-image: url("../../../assets/img/homeback.png");
+  background-repeat:no-repeat;
+  background-size: cover;
+}
+
+.mainrow {
+  height: 100%;
+  width: 100%;
+}
+
+.getStartCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.mainbox {
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../../assets/img/mainboxback.PNG");
+  background-repeat:no-repeat;
+  background-size: cover;
+  border-radius: 7px;
+}
+
+.startButton{
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  background-color: #FF480B;
+  transition: background-color 500ms;
+}
+.startButton:hover{
+  background-color: #FF602F;
+}
+
+.logobox {
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-left: 5%;
+  margin-top: 5%;
+  background-color: #B6CF80;
+  border-radius: 7px;
+}
+
+.footer {
+  background-color: transparent;
+  width: 100%;
+  padding: 15px 30px;
+  border: 2px dotted #FF420A;
+  position: absolute;
+  bottom: 10px;
+  border-radius: 15px;
+  text-align: center;
+
+}

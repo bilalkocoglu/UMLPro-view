@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  //overflow: hidden;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.font-sans {
+  font-family: sans-serif;
+}
+
+.draggable {
+  cursor: move;
+  user-select: none;
+}
+
+.movable:not(.dragging) {
+  transition: transform 300ms ease-in-out;
+}

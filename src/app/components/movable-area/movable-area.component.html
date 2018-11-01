@@ -1,0 +1,77 @@
+<div class="movable-main">
+  <div class="movable-area-box" abeMovableArea>
+    <div *ngFor="let table of tables" class="dragItem"
+         [ngStyle]="getCustomStyle(table)"
+         (click)="addDependency(table)" abeMovable>
+      <p class="baslik">
+        <span style="float: left;">
+          {{table.name}}
+        </span>
+        <span style="float: right;">
+          <img (click)="deleteTable(table)" style="cursor:pointer;" src="../../../assets/img/deleteIcon.png" width="15" height="15">
+        </span>
+        <span style="float: right; margin-right: 3px;">
+          {{table.type}}
+        </span>
+      </p>
+      <hr class="baslikCizgisi"/>
+      <p class="baslik">
+        <span style="float: left;">
+          Properties
+        </span>
+        <span style="float: right; margin-right: 3px;">
+          <img (click)="addProperty(table)" style="cursor:pointer; margin-left: 3px;" src="../../../assets/img/addicon.png" width="15" height="15">
+        </span>
+      </p>
+      <table>
+        <tr *ngFor="let property of table.properties">
+          <td>
+            <input style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="property.access">
+          </td>
+          <td>
+            <input style="width: 100px;" type="text" class="inputs" [(ngModel)]="property.name">
+          </td>
+          <td>
+            :
+          </td>
+          <td>
+            <input style="width: 75px;" type="text" class="inputs" [(ngModel)]="property.type">
+          </td>
+          <td>
+            <img (click)="deleteProperty(table,property)" style="cursor:pointer;" src="../../../assets/img/remove.png" width="15" height="15">
+          </td>
+        </tr>
+      </table>
+      <hr class="baslikCizgisi"/>
+      <p class="baslik">
+        <span style="float: left;">
+          Functions
+        </span>
+        <span style="float: right; margin-right: 3px;">
+          <img (click)="addFunction(table)" style="cursor:pointer; margin-left: 3px;" src="../../../assets/img/addicon.png" width="15" height="15">
+        </span>
+      </p>
+      <table>
+        <tr *ngFor="let fun of table.functions">
+          <td>
+            <input style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="fun.access">
+          </td>
+          <td>
+            <input style="width: 100px;" type="text" class="inputs" [(ngModel)]="fun.name">
+          </td>
+          <td>
+            :
+          </td>
+          <td>
+            <input style="width: 75px;" type="text" class="inputs" [(ngModel)]="fun.type">
+          </td>
+          <td>
+            <img (click)="deleteFunction(table,fun)" style="cursor:pointer;" src="../../../assets/img/remove.png" width="15" height="15">
+          </td>
+        </tr>
+      </table>
+      <hr class="baslikCizgisi"/>
+    </div>
+  </div>
+
+</div>
