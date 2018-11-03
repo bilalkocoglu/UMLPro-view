@@ -20,22 +20,28 @@
           Properties
         </span>
         <span style="float: right; margin-right: 3px;">
-          <img (click)="addProperty(table)" style="cursor:pointer; margin-left: 3px;" src="../../../assets/img/addicon.png" width="15" height="15">
+          <img (click)="addProperty(table)" style="cursor:pointer; margin-left: 3px;" src="../../../assets/img/addicon.png" width="17" height="17">
         </span>
       </p>
       <table>
         <tr *ngFor="let property of table.properties">
           <td>
-            <input style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="property.access">
+            <select id="inputState" style="margin-top: 1px;" [(ngModel)]="property.access">
+              <option value="+" selected>+</option>
+              <option value="-">-</option>
+            </select>
+            <!--
+            <input placeholder="+/-" style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="property.access">
+            -->
           </td>
           <td>
-            <input style="width: 100px;" type="text" class="inputs" [(ngModel)]="property.name">
+            <input placeholder="name" style="width: 85px;" type="text" class="inputs" [(ngModel)]="property.name">
           </td>
           <td>
             :
           </td>
           <td>
-            <input style="width: 75px;" type="text" class="inputs" [(ngModel)]="property.type">
+            <input placeholder="type" style="width: 60px;" type="text" class="inputs" [(ngModel)]="property.type">
           </td>
           <td>
             <img (click)="deleteProperty(table,property)" style="cursor:pointer;" src="../../../assets/img/remove.png" width="15" height="15">
@@ -48,22 +54,28 @@
           Functions
         </span>
         <span style="float: right; margin-right: 3px;">
-          <img (click)="addFunction(table)" style="cursor:pointer; margin-left: 3px;" src="../../../assets/img/addicon.png" width="15" height="15">
+          <img (click)="addFunction(table)" style="cursor:pointer; margin-left: 3px;" src="../../../assets/img/addicon.png" width="17" height="17">
         </span>
       </p>
       <table>
         <tr *ngFor="let fun of table.functions">
           <td>
+            <select style="margin-top: 1px;" [(ngModel)]="fun.access">
+              <option value="+" selected>+</option>
+              <option value="-">-</option>
+            </select>
+            <!--
             <input style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="fun.access">
+            -->
           </td>
           <td>
-            <input style="width: 100px;" type="text" class="inputs" [(ngModel)]="fun.name">
+            <input placeholder="name" style="width: 85px;" type="text" class="inputs" [(ngModel)]="fun.name">
           </td>
           <td>
             :
           </td>
           <td>
-            <input style="width: 75px;" type="text" class="inputs" [(ngModel)]="fun.type">
+            <input placeholder="return" style="width: 60px;" type="text" class="inputs" [(ngModel)]="fun.type">
           </td>
           <td>
             <img (click)="deleteFunction(table,fun)" style="cursor:pointer;" src="../../../assets/img/remove.png" width="15" height="15">

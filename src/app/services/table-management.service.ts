@@ -25,11 +25,13 @@ export class TableManagementService {
 
     const property = new Property();
     property.id = table.propertyIdCount;
+    property.access = '+';
 
     table.properties = [property];
 
     const fun: Function = new Function();
     fun.id = table.functionIdCount;
+    fun.access = '+';
 
     table.functions = [fun];
 

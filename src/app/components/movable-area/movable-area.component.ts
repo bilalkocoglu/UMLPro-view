@@ -43,6 +43,7 @@ export class MovableAreaComponent {
 
     const property = new Property();
     property.id = propIdCount + 1;
+    property.access = '+';
     this.tables.find(item => item.id === table.id).properties.push(property);
 
     this.tables.find(item => item.id === table.id).propertyIdCount = propIdCount + 1;
@@ -55,6 +56,8 @@ export class MovableAreaComponent {
 
     const fun = new Function();
     fun.id = funIdCount + 1;
+    fun.access = '+';
+
     this.tables.find(item => item.id === table.id).functions.push(fun);
 
     this.tables.find(item => item.id === table.id).functionIdCount = funIdCount + 1;
