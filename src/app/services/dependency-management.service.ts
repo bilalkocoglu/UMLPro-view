@@ -31,9 +31,9 @@ export class DependencyManagementService {
 
 
     if (dependency.destination.type === 'Class') {
-      dependency.relation = 'extend';
+      dependency.relation = 'extends';
     } else {
-      dependency.relation = 'implement';
+      dependency.relation = 'implements';
     }
 
     let allreadyDependency = false;
@@ -67,5 +67,14 @@ export class DependencyManagementService {
     }
 
     this.refleshDependency.emit(this.dependencies);
+  }
+
+  deleteDependency(dependency: Dependency) {
+    this.dependencies.forEach( (dep, index) => {
+      if (dep.from === dependency.from && dep.destination === dependency.destination) {
+        this.dependencies.splice(index, 1);
+        this.refleshDependency.emit(this.dependencies);
+      }
+    });
   }
 }

@@ -63,6 +63,11 @@ export class ActionsComponent {
     this.dependencyManagement.setDependencyActive(true);
   }
 
+  deleteDependency(dependency: Dependency) {
+    this.dependencyManagement.deleteDependency(dependency);
+
+  }
+
   viewTables() {
     console.log(this.tablesManagement.getTables());
   }

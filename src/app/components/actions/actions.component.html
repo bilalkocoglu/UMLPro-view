@@ -21,8 +21,20 @@
   <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="startDependencySelect()">Add Dependency</p>
 
   <div class="alert alert-dark dependencyBox" role="alert">
-    <div class="row" *ngFor="let dependency of dependencies">
-      <span>{{dependency.from.name}} || {{dependency.relation}} || {{dependency.destination.name}}</span>
+    <div class="row dependencyListItem" *ngFor="let dependency of dependencies">
+      <div class="col item" style="margin-top: 3px;">
+        <span>{{dependency.from.name}}</span>
+      </div>
+      <div class="col item" style="text-align: center;">
+        <img *ngIf=" dependency.relation === 'extends'" src="../../../assets/img/extendsDependency.PNG">
+        <img *ngIf=" dependency.relation === 'implements'" src="../../../assets/img/implementsDependency.PNG">
+      </div>
+      <div class="col item" style="margin-top: 3px;">
+        <span>{{dependency.destination.name}}</span>
+      </div>
+      <div class="col item">
+        <img (click)="deleteDependency(dependency)" style="cursor: pointer" src="../../../assets/img/deleteIcon.png">
+      </div>
     </div>
   </div>
 
