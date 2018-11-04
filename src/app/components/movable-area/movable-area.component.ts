@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {Table} from '../../table';
 import {TableManagementService} from '../../services/table-management.service';
 import {Property} from '../../Property';
 import {Function} from '../../Function';
 import {DependencyManagementService} from '../../services/dependency-management.service';
+import {DOCUMENT} from '@angular/common';
+import {Dependency} from '../../Dependency';
 
 @Component({
   selector: 'abe-movable-area',
@@ -12,14 +14,20 @@ import {DependencyManagementService} from '../../services/dependency-management.
 })
 export class MovableAreaComponent {
   tables: Table[] = [];
+  dependencies: Dependency[] = [];
 
   dependencyStatus = false;
   dependencySelectedItems: Table[] = [];
 
   constructor(private tableManagement: TableManagementService,
-              private dependencyManagement: DependencyManagementService) {
+              private dependencyManagement: DependencyManagementService,
+              private elementRef: ElementRef) {
     this.tableManagement.tableChange.subscribe((tables) => {
       this.tables = tables;
+    });
+
+    this.dependencyManagement.refleshDependency.subscribe((dependencyList) => {
+      this.dependencies = dependencyList;
     });
 
     this.dependencyManagement.depencencyIsActive.subscribe((val) => this.dependencyStatusChange(val));
@@ -165,5 +173,31 @@ export class MovableAreaComponent {
   private dependencyStatusChange(val: boolean) {
     this.dependencyStatus = val;
     this.dependencySelectedItems = [];
+  }
+
+  getX1(tableId: string) {
+    const element = document.querySelector('#' + tableId);
+    return element.getBoundingClientRect().left - 35 + (element.getBoundingClientRect().width/2);
+  }
+  getY1(tableId: string) {
+    const element = document.querySelector('#' + tableId);
+    return element.getBoundingClientRect().top - 35 + (element.getBoundingClientRect().height/2);
+  }
+  getX2(tableId: string) {
+    const element = document.querySelector('#' + tableId);
+    return element.getBoundingClientRect().left-35 + (element.getBoundingClientRect().width/2);
+  }
+  getY2(tableId: string) {
+    const element = document.querySelector('#' + tableId);
+    return element.getBoundingClientRect().top - 35 + (element.getBoundingClientRect().height/2);
+  }
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 }
