@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {Table} from '../table';
-import {Property} from '../Property';
-import {Function} from '../Function';
+import {Table} from '../dto/table';
+import {Property} from '../dto/Property';
+import {Function} from '../dto/Function';
 
 @Injectable({
   providedIn: 'root'

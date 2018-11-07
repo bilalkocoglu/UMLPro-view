@@ -1,5 +1,4 @@
 <div class="action-main">
-
   <div class="alert alert-dark infoBox" role="alert">
     <div class="row">
       <span>
@@ -16,11 +15,23 @@
     </div>
   </div>
 
-  <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="openModal(content)">Add Object</p>
-  <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="viewTables()">Göster</p>
-  <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="startDependencySelect()">Add Dependency</p>
+  <div class="row" style="margin: 0px">
+    <div class="col">
+      <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="openModal(content)">Add Object</p>
+    </div>
+    <div class="col">
+      <!--
+      <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="viewTables()">Göster</p>
+      -->
+    </div>
+    <div class="col">
+      <p class="btn btn-success" style="cursor:pointer; bottom: 40px" (click)="startDependencySelect()">Add Dependency</p>
+    </div>
+  </div>
+
 
   <div class="alert alert-dark dependencyBox" role="alert">
+    <p class="dependencyListTitle">Dependencies</p>
     <div class="row dependencyListItem" *ngFor="let dependency of dependencies">
       <div class="col item" style="margin-top: 3px;">
         <span>{{dependency.from.name}}</span>
@@ -37,6 +48,62 @@
       </div>
     </div>
   </div>
+
+  <div class="row" style="margin: 0px !important;">
+    <!-- .slideThree -->
+    <div class="slideThree">
+      <input type="checkbox" value="None" [(ngModel)]="isConstructor" id="slideThree" name="check" />
+      <label for="slideThree"></label>
+    </div>
+    <!-- end .slideThree -->
+    <span style="margin-left: 5px; color: white;">Constructor</span>
+  </div>
+
+  <div class="row" style="margin: 0px; margin-top: 10px;">
+    <!-- .slideThree -->
+    <div class="slideThree">
+      <input type="checkbox" value="None" [(ngModel)]="isGetterSetter" id="slideThree2" name="check" />
+      <label for="slideThree2"></label>
+    </div>
+    <!-- end .slideThree -->
+    <span class="settingFormLabels">Getter-Setter Methods</span>
+  </div>
+  <div class="row" style="margin: 0px; margin-top: 30px;">
+    <div class="col">
+      <div class="form-check">
+        <label>
+          <input type="radio" style="display: none" [formControl]="language" value="java" checked>
+          <span class="label-text settingFormLabels" style="cursor: pointer;">Java</span>
+        </label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-check">
+        <label>
+          <input type="radio" style="display: none" [formControl]="language" value="cSharp">
+          <span class="label-text settingFormLabels" style="cursor: pointer;">C#</span>
+        </label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-check">
+        <label>
+          <input type="radio" style="display: none" [formControl]="language" value="php" >
+          <span class="label-text settingFormLabels" style="cursor: pointer;">Php</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 15px;">
+    <div class="col" style="padding-left: 10%; padding-right: 10%">
+      <p class="btn btn-success generateButton" style="cursor:pointer;" (click)="generate()">
+        <img src="../../../assets/img/generateIcon.png" width="25" height="25"> Generate Classes
+      </p>
+    </div>
+  </div>
+
+
+
 
   <ng-template #content let-modal>
     <div class="modal-header">
@@ -75,7 +142,6 @@
 
 
 </div>
-
 
 <abe-footer></abe-footer>
 

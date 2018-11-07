@@ -2,7 +2,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {TableManagementService} from '../../services/table-management.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {DependencyManagementService} from '../../services/dependency-management.service';
-import {Dependency} from '../../Dependency';
+import {Dependency} from '../../dto/Dependency';
+import {FormControl, FormGroup} from '@angular/forms';
+import {GenerateRequestDTO} from '../../dto/GenerateRequestDTO';
 
 
 @Component({
@@ -19,6 +21,12 @@ export class ActionsComponent {
 
   dependencyStatus = false;
   dependencies: Dependency[] = [];
+
+  isConstructor = false;
+  isGetterSetter = false;
+
+  language = new FormControl('java');
+
 
   constructor(private tablesManagement: TableManagementService,
               private modalService: NgbModal,
@@ -85,6 +93,16 @@ export class ActionsComponent {
     console.log(this.dependencies);
     this.dependencies.push(dependency);
     this.dependencyStatus = false;
+  }
+
+  generate() {
+    const generateReq: GenerateRequestDTO = new GenerateRequestDTO();
+    generateReq.language = this.language.value;
+    generateReq.isConstructor = this.isConstructor;
+    generateReq.isGetterSetter = this.isGetterSetter;
+    generateReq.tableList = this.tablesManagement.getTables();
+    generateReq.dependencyList = this.dependencies;
+    console.log(generateReq);
   }
 }
 

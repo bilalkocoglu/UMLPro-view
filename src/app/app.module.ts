@@ -10,7 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MovableAreaComponent } from './components/movable-area/movable-area.component';
 import { ActionsComponent } from './components/actions/actions.component';
 import {DraggableModule} from './draggable/draggable.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -33,6 +33,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     DraggableModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   providers: [

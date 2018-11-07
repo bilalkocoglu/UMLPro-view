@@ -24,7 +24,7 @@
   color: #573790;
   font-weight: bold;
   font-size: x-small;
-  height: 150px;
+  height: 170px;
   overflow: scroll;
   unicode-bidi:bidi-override;
 }
@@ -38,7 +38,7 @@
 }
 
 .dependencyBox::-webkit-scrollbar-thumb{
-  background-color: #00A84F;
+  background-color: brown;
   border-radius: 8px;
   transition: background-color 0.5s;
 }
@@ -57,3 +57,113 @@
   padding: 0px;
   text-align: center;
 }
+
+.dependencyListTitle {
+  text-align: center;
+  font-size: small;
+  font-family: sans-serif;
+  border-bottom: 1px solid brown;
+}
+
+.settingFormLabels {
+  margin-left: 5px;
+  color: white;
+}
+
+.generateButton {
+  width: 100%;
+  font-family: sans-serif;
+  font-size: large;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
+
+
+input[type="radio"] + .label-text:before{
+  content: "\f10c";
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  cursor: pointer;
+  line-height: 1;
+  -webkit-font-smoothing:antialiased;
+  width: 1em;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+input[type="radio"]:checked + .label-text:before{
+  content: "\f192";
+  color: #FB7801;
+  animation: effect 250ms ease-in;
+}
+
+input[type="radio"]:disabled + .label-text{
+  color: #aaa;
+}
+
+input[type="radio"]:disabled + .label-text:before{
+  content: "\f111";
+  color: #ccc;
+}
+
+$activeColor: #00A84F; //green
+$darkenColor: darken($activeColor, 20%);
+$background: #3498db;
+
+.slideThree {
+  width: 80px;
+  height: 26px;
+  background: white;
+  position: relative;
+  border-radius: 50px;
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+  &:after {
+    content: 'OFF';
+    color: brown;
+    position: absolute;
+    right: 10px;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px rgba(255,255,255,.15);
+  }
+  &:before {
+    content: 'ON';
+    color: $activeColor;
+    position: absolute;
+    left: 10px;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+  }
+  label {
+    display: block;
+    width: 34px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 1;
+    background: silver;
+    background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
+  }
+  input[type=checkbox] {
+    visibility: hidden;
+    &:checked + label {
+      left: 43px;
+    }
+  }
+}
+
+
+

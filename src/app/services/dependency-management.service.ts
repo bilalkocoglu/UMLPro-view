@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {Table} from '../table';
-import {Dependency} from '../Dependency';
+import {Table} from '../dto/table';
+import {Dependency} from '../dto/Dependency';
 import {TableManagementService} from './table-management.service';
 
 @Injectable({

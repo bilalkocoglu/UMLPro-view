@@ -1,11 +1,11 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {Table} from '../../table';
+import {Table} from '../../dto/table';
 import {TableManagementService} from '../../services/table-management.service';
-import {Property} from '../../Property';
-import {Function} from '../../Function';
+import {Property} from '../../dto/Property';
+import {Function} from '../../dto/Function';
 import {DependencyManagementService} from '../../services/dependency-management.service';
 import {DOCUMENT} from '@angular/common';
-import {Dependency} from '../../Dependency';
+import {Dependency} from '../../dto/Dependency';
 
 @Component({
   selector: 'abe-movable-area',
