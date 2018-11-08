@@ -11,6 +11,10 @@ import { MovableAreaComponent } from './components/movable-area/movable-area.com
 import { ActionsComponent } from './components/actions/actions.component';
 import {DraggableModule} from './draggable/draggable.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http";
+import {CommonModule} from "@angular/common";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
 
 const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -34,7 +38,15 @@ const appRoutes: Routes = [
     DraggableModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+    })
   ],
   providers: [
     MovableAreaComponent

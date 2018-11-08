@@ -5,6 +5,8 @@ import {DependencyManagementService} from '../../services/dependency-management.
 import {Dependency} from '../../dto/Dependency';
 import {FormControl, FormGroup} from '@angular/forms';
 import {GenerateRequestDTO} from '../../dto/GenerateRequestDTO';
+import {ApiClientService} from "../../services/api-client.service";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -30,7 +32,9 @@ export class ActionsComponent {
 
   constructor(private tablesManagement: TableManagementService,
               private modalService: NgbModal,
-              private dependencyManagement: DependencyManagementService) {
+              private dependencyManagement: DependencyManagementService,
+              private apiClientService: ApiClientService,
+              private toastr: ToastrService) {
 
     this.dependencyManagement.refleshDependency.subscribe((dependencies) => {
       this.dependencies = [];
@@ -96,13 +100,26 @@ export class ActionsComponent {
   }
 
   generate() {
-    const generateReq: GenerateRequestDTO = new GenerateRequestDTO();
-    generateReq.language = this.language.value;
-    generateReq.isConstructor = this.isConstructor;
-    generateReq.isGetterSetter = this.isGetterSetter;
-    generateReq.tableList = this.tablesManagement.getTables();
-    generateReq.dependencyList = this.dependencies;
-    console.log(generateReq);
+    if (this.tablesManagement.getTables().length <= 0){
+      this.toastr.error("Please create table", "Generate Error");
+    } else {
+      const generateReq: GenerateRequestDTO = new GenerateRequestDTO();
+      generateReq.language = this.language.value;
+      generateReq.isConstructor = this.isConstructor;
+      generateReq.isGetterSetter = this.isGetterSetter;
+      generateReq.tableList = this.tablesManagement.getTables();
+      generateReq.dependencyList = this.dependencies;
+      //console.log(generateReq);
+
+      this.apiClientService.generateClient(generateReq).subscribe(
+        response => {
+          console.log(response);
+        },
+        error2 => {
+          console.log(error2);
+        }
+      );
+    }
   }
 }
 
