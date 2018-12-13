@@ -7,6 +7,10 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {GenerateRequestDTO} from '../../dto/GenerateRequestDTO';
 import {ApiClientService} from "../../services/api-client.service";
 import {ToastrService} from "ngx-toastr";
+import {Table} from "../../dto/table";
+import {Observable} from "rxjs/Rx";
+import {Router} from "@angular/router";
+import {GenerateResponseDTO} from "../../dto/GenerateResponseDTO";
 
 
 @Component({
@@ -29,12 +33,16 @@ export class ActionsComponent {
 
   language = new FormControl('java');
 
+  fileUpload: Observable<string>;
+
+  loading = false;
 
   constructor(private tablesManagement: TableManagementService,
               private modalService: NgbModal,
               private dependencyManagement: DependencyManagementService,
               private apiClientService: ApiClientService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private router: Router) {
 
     this.dependencyManagement.refleshDependency.subscribe((dependencies) => {
       this.dependencies = [];
@@ -63,11 +71,24 @@ export class ActionsComponent {
     const emp: boolean = this.isEmptyOrSpace(this.objectName);
 
     if (emp) {
-      this.objectName = 'undefined';
+      this.toastr.error("We can not create new object if don't input object name.", "Create Object Error");
+      this.modalService.dismissAll('Close click');
+    }else {
+      var isAllreadyObjectName = false;
+      this.tablesManagement.getTables().forEach((table) => {
+        if (table.name == this.objectName){
+          isAllreadyObjectName = true;
+        }
+      });
+      if (isAllreadyObjectName) {
+        this.toastr.error("This object name already taken by different object.", "Create Object Error");
+        this.modalService.dismissAll('Close click');
+      }else {
+        this.tablesManagement.addTable(this.objectName, this.objectType);
+        this.modalService.dismissAll('Close click');
+      }
     }
 
-    this.tablesManagement.addTable(this.objectName, this.objectType);
-    this.modalService.dismissAll('Close click');
   }
 
   startDependencySelect() {
@@ -84,7 +105,6 @@ export class ActionsComponent {
     console.log(this.tablesManagement.getTables());
   }
 
-
   closeCentered() {
     this.modalService.dismissAll('Close click');
   }
@@ -100,9 +120,32 @@ export class ActionsComponent {
   }
 
   generate() {
+    this.loading = true;
     if (this.tablesManagement.getTables().length <= 0){
+      this.loading = false;
       this.toastr.error("Please create table", "Generate Error");
+      return;
     } else {
+      var tables: Table[] = this.tablesManagement.getTables();
+      tables.forEach((table, index) => {
+        table.properties.forEach((prop, index) => {
+          if (prop.type == null) {
+            prop.type = "String";
+          }
+          if (prop.name == null) {
+            table.properties.splice(index, 1);
+          }
+        });
+        table.functions.forEach((fun, index) => {
+          if (fun.type == null) {
+            fun.type = "void";
+          }
+          if (fun.name == null) {
+            table.functions.splice(index, 1);
+          }
+        });
+      });
+
       const generateReq: GenerateRequestDTO = new GenerateRequestDTO();
       generateReq.language = this.language.value;
       generateReq.isConstructor = this.isConstructor;
@@ -113,10 +156,25 @@ export class ActionsComponent {
 
       this.apiClientService.generateClient(generateReq).subscribe(
         response => {
-          console.log(response);
-        },
+          var fileName = response.body.fileName;
+          var generateResponse = new GenerateResponseDTO();
+          generateResponse.fileName = fileName;
+          this.apiClientService.getFileUrl(generateResponse).subscribe(
+            res => {
+              console.log(res.body.fileName);
+              var link = res.body.fileName;
+              var a = document.createElement('a');
+              a.href = link;
+              a.setAttribute('style', 'display:none');
+              a.click();
+              this.loading = false;
+              a.remove();
+            }
+          );
+          },
         error2 => {
           console.log(error2);
+          this.loading = true;
         }
       );
     }

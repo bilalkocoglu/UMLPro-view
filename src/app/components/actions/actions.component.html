@@ -3,13 +3,6 @@
     <div class="row">
       <span>
         <img src="../../../assets/img/info.png" width="20" height="20">
-        If you do not enter a name when adding a new object, it is assigned undefined by default.
-        So it is recommended that you enter all desired information.
-      </span>
-    </div>
-    <div class="row">
-      <span>
-        <img src="../../../assets/img/info.png" width="20" height="20">
         If you do leave blank in table property and functions, it is assigned public and void by default.
       </span>
     </div>
@@ -96,8 +89,11 @@
   </div>
   <div class="row" style="margin-top: 15px;">
     <div class="col" style="padding-left: 10%; padding-right: 10%">
-      <p class="btn btn-success generateButton" style="cursor:pointer;" (click)="generate()">
+      <p *ngIf="!loading" class="btn btn-success generateButton" style="cursor:pointer;" (click)="generate()">
         <img src="../../../assets/img/generateIcon.png" width="25" height="25"> Generate Classes
+      </p>
+      <p *ngIf="loading" class="btn btn-success generateButton" style="cursor:pointer;">
+        <img src="../../../assets/gif/loading.gif" width="30" height="30">
       </p>
     </div>
   </div>
