@@ -37,13 +37,14 @@
       <table>
         <tr *ngFor="let property of table.properties">
           <td>
-            <select id="inputState" style="margin-top: 1px;" [(ngModel)]="property.access">
+            <select *ngIf="table.type == 'class'" id="inputState" style="margin-top: 1px;" [(ngModel)]="property.access">
               <option value="+" selected>+</option>
               <option value="-">-</option>
             </select>
             <!--
             <input placeholder="+/-" style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="property.access">
             -->
+            <span *ngIf="table.type != 'class'" style="padding: 0px 10px 2px 10px; border: 1px solid black">+</span>
           </td>
           <td>
             <input placeholder="name" style="width: 85px;" type="text" class="inputs" [(ngModel)]="property.name">
@@ -71,13 +72,11 @@
       <table>
         <tr *ngFor="let fun of table.functions">
           <td>
-            <select style="margin-top: 1px;" [(ngModel)]="fun.access">
+            <select *ngIf="table.type == 'class'" style="margin-top: 1px;" [(ngModel)]="fun.access">
               <option value="+" selected>+</option>
               <option value="-">-</option>
             </select>
-            <!--
-            <input style="width: 15px;" size="1" type="text" class="inputs" maxlength="1" type="text" [(ngModel)]="fun.access">
-            -->
+            <span *ngIf="table.type != 'class'" style="padding: 0px 10px 2px 10px; border: 1px solid black">+</span>
           </td>
           <td>
             <input placeholder="name" style="width: 85px;" type="text" class="inputs" [(ngModel)]="fun.name">

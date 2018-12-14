@@ -2,6 +2,8 @@ import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Table} from '../dto/table';
 import {Dependency} from '../dto/Dependency';
 import {TableManagementService} from './table-management.service';
+import {el} from "@angular/platform-browser/testing/src/browser_util";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class DependencyManagementService {
   private dependencyActive = false;
   dependencies: Dependency[] = [];
 
-  constructor(private tableManagement: TableManagementService) { }
+  constructor(private tableManagement: TableManagementService,
+              private toastr: ToastrService) { }
 
   setDependencyActive(val: boolean): void {
     if (val === true) {
@@ -30,23 +33,42 @@ export class DependencyManagementService {
     dependency.destination = this.tableManagement.getTable(tables[1].id);
 
 
-    if (dependency.destination.type === 'Class') {
+    if (dependency.from.type === 'class' && dependency.destination.type === 'class') {
       dependency.relation = 'extends';
-    } else {
+    }
+    if (dependency.from.type === 'class' && dependency.destination.type === 'interface') {
       dependency.relation = 'implements';
+    }
+    if (dependency.from.type === 'interface' && dependency.destination.type === 'interface') {
+      dependency.relation = 'extends';
     }
 
     let allreadyDependency = false;
 
     this.dependencies.forEach((dpn) => {
       if (dpn.from.id === dependency.from.id && dpn.destination.id === dependency.destination.id ) {
+        console.log("Daha önce tanımlanmış bağımlılık.");
         allreadyDependency = true;
+      }
+
+      if (dpn.from.id == dependency.destination.id && dpn.destination.id == dependency.from.id) {
+        console.log("Daha önce ters bir şekilde bağlanmış")
+        allreadyDependency = true;
+      }
+
+      if (dependency.from.type == 'class' && dependency.destination.type == 'class') {
+        if ((dpn.from.id == dependency.from.id) && (dpn.relation == 'extends') ) {
+          console.log("Bir class bir kez extends yapabilir !");
+          allreadyDependency = true;
+        }
       }
     });
 
     if (!allreadyDependency) {
       this.dependencies.push(dependency);
       this.refleshDependency.emit(this.dependencies);
+    } else {
+      this.toastr.error('Doing a wrong operation !','');
     }
   }
 

@@ -11,6 +11,7 @@ import {Table} from "../../dto/table";
 import {Observable} from "rxjs/Rx";
 import {Router} from "@angular/router";
 import {GenerateResponseDTO} from "../../dto/GenerateResponseDTO";
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class ActionsComponent {
 
   isConstructor = false;
   isGetterSetter = false;
+  isLombok = false;
 
   language = new FormControl('java');
 
@@ -62,9 +64,9 @@ export class ActionsComponent {
 
     // OBJECT TYPE CONTROL
     if (this.objectType === '2') {
-      this.objectType = 'Interface';
+      this.objectType = 'interface';
     } else {
-      this.objectType = 'Class';
+      this.objectType = 'class';
     }
 
     // OBJECT NAME CONTROL
@@ -92,8 +94,12 @@ export class ActionsComponent {
   }
 
   startDependencySelect() {
-    this.dependencyStatus = true;
-    this.dependencyManagement.setDependencyActive(true);
+    if (this.tablesManagement.getTables().length < 2) {
+      this.toastr.error('Must be minimum two objects !', 'Dependency Error');
+    } else {
+      this.dependencyStatus = true;
+      this.dependencyManagement.setDependencyActive(true);
+    }
   }
 
   deleteDependency(dependency: Dependency) {
@@ -123,7 +129,7 @@ export class ActionsComponent {
     this.loading = true;
     if (this.tablesManagement.getTables().length <= 0){
       this.loading = false;
-      this.toastr.error("Please create table", "Generate Error");
+      this.toastr.error("Please create table !", "Generate Error");
       return;
     } else {
       var tables: Table[] = this.tablesManagement.getTables();
@@ -145,14 +151,14 @@ export class ActionsComponent {
           }
         });
       });
-
       const generateReq: GenerateRequestDTO = new GenerateRequestDTO();
       generateReq.language = this.language.value;
       generateReq.isConstructor = this.isConstructor;
       generateReq.isGetterSetter = this.isGetterSetter;
+      generateReq.isLombok = this.isLombok;
       generateReq.tableList = this.tablesManagement.getTables();
       generateReq.dependencyList = this.dependencies;
-      //console.log(generateReq);
+      console.log(generateReq);
 
       this.apiClientService.generateClient(generateReq).subscribe(
         response => {

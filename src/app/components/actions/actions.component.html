@@ -65,14 +65,18 @@
   <div class="row" style="margin: 0px; margin-top: 10px;">
     <!-- .slideThree -->
     <div class="slideThree">
-      <input type="checkbox" value="None" id="slideThree3" name="check" />
+      <input type="checkbox" value="None" [(ngModel)]="isLombok" id="slideThree3" name="check" />
       <label for="slideThree3"></label>
     </div>
     <!-- end .slideThree -->
-    <span style="margin-left: 5px; color: white;">Lombok Support</span>
+    <span style="margin-left: 5px; color: white;">Lombok Support
+      <a href="https://www.baeldung.com/intro-to-project-lombok" target="_blank">
+        <img src="../../../assets/img/info-icon.png" width="15" height="15">
+      </a>
+    </span>
   </div>
 
-  <div class="row" style="margin: 0px; margin-top: 30px;">
+  <div class="row" style="margin: 0px; margin-top: 15px;">
     <div class="col">
       <div class="form-check">
         <label>

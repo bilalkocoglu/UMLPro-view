@@ -6,6 +6,7 @@ import {Function} from '../../dto/Function';
 import {DependencyManagementService} from '../../services/dependency-management.service';
 import {DOCUMENT} from '@angular/common';
 import {Dependency} from '../../dto/Dependency';
+import {Toast, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'abe-movable-area',
@@ -21,7 +22,8 @@ export class MovableAreaComponent {
 
   constructor(private tableManagement: TableManagementService,
               private dependencyManagement: DependencyManagementService,
-              private elementRef: ElementRef) {
+              private elementRef: ElementRef,
+              private toastr: ToastrService) {
     this.tableManagement.tableChange.subscribe((tables) => {
       this.tables = tables;
     });
@@ -104,7 +106,11 @@ export class MovableAreaComponent {
           this.dependencySelectedItems = [];
         } else {
           this.dependencySelectedItems.push(table);
-          this.dependencyManagement.addNewDependency(this.dependencySelectedItems);
+          if (this.dependencySelectedItems[0].type == 'interface' && this.dependencySelectedItems[1].type == 'class') {
+            this.toastr.error('You mustn\'t create dependency between interface and class !','Create Dependency Error');
+          } else {
+            this.dependencyManagement.addNewDependency(this.dependencySelectedItems);
+          }
           this.dependencySelectedItems = [];
           this.dependencyStatus = false;
         }
@@ -115,7 +121,7 @@ export class MovableAreaComponent {
   }
 
   getCustomStyle(table: Table) {
-    if (table.type === 'Class') {       // obje tipi class ise düz çizgi
+    if (table.type === 'class') {       // obje tipi class ise düz çizgi
       if (this.dependencyStatus === true) {
         let findItem = false;
         this.dependencySelectedItems.forEach((item) => {
