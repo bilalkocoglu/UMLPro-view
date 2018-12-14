@@ -9,6 +9,26 @@
   background-size: cover;
   padding: 10px;
   padding-bottom: 40px;
+  unicode-bidi:bidi-override;
+  overflow: scroll;
+}
+
+.action-main::-webkit-scrollbar{
+  width: 5px;
+}
+
+.action-main::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+.action-main::-webkit-scrollbar-thumb{
+  background-color: white;
+  border-radius: 5px;
+  transition: background-color 0.5s;
+}
+
+.action-main::-webkit-scrollbar-thumb:hover{
+  background-color: silver;
 }
 
 
@@ -27,7 +47,7 @@
   color: #573790;
   font-weight: bold;
   font-size: x-small;
-  height: 170px;
+  height: 150px;
   overflow: scroll;
   unicode-bidi:bidi-override;
 }
@@ -85,7 +105,7 @@
 
 
 input[type="radio"] + .label-text:before{
-  content: "\f10c";
+  content: "\f057";
   font-family: "FontAwesome";
   speak: none;
   font-style: normal;
@@ -101,7 +121,10 @@ input[type="radio"] + .label-text:before{
 }
 
 input[type="radio"]:checked + .label-text:before{
-  content: "\f192";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  content: "\f14a";
   color: #FB7801;
   animation: effect 250ms ease-in;
 }
