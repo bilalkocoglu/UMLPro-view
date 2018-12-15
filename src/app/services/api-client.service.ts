@@ -9,7 +9,10 @@ import {GenerateResponseDTO} from "../dto/GenerateResponseDTO";
 })
 export class ApiClientService {
 
-  private baseUrl = 'http://localhost:8070/';
+  private baseUrl = 'https://umlpro-api.herokuapp.com/';
+
+  //heroku URL = https://umlpro-api.herokuapp.com/
+  //local URL = http://localhost:8070/
 
   constructor(private http: HttpClient) { }
 
