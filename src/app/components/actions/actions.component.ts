@@ -168,6 +168,8 @@ export class ActionsComponent {
           this.apiClientService.getFileUrl(generateResponse).subscribe(
             res => {
               console.log(res.body.fileName);
+              window.open(fileName);
+              /*
               var link = res.body.fileName;
               var a = document.createElement('a');
               a.href = link;
@@ -175,6 +177,7 @@ export class ActionsComponent {
               a.click();
               this.loading = false;
               a.remove();
+              */
             }
           );
           },
