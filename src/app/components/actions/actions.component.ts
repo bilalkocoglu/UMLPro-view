@@ -167,17 +167,17 @@ export class ActionsComponent {
           generateResponse.fileName = fileName;
           this.apiClientService.getFileUrl(generateResponse).subscribe(
             res => {
-              console.log(res.body.fileName);
-              window.open(fileName);
-              /*
               var link = res.body.fileName;
+              console.log(res.body.fileName);
+              window.open(link);
+              /*
               var a = document.createElement('a');
               a.href = link;
               a.setAttribute('style', 'display:none');
               a.click();
-              this.loading = false;
               a.remove();
               */
+              this.loading = false;
             }
           );
           },
