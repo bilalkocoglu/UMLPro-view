@@ -9,23 +9,25 @@ import {GenerateResponseDTO} from "../dto/GenerateResponseDTO";
 })
 export class ApiClientService {
 
-  private baseUrl = 'https://umlpro-api.herokuapp.com/';
+  private baseUrl = 'https://umlpro-api.herokuapp.com/generate/';
 
-  //heroku URL = https://umlpro-api.herokuapp.com/
-  //local URL = http://localhost:8070/
+  //heroku URL = https://umlpro-api.herokuapp.com/generate/
+  //local URL = http://localhost:8070/generate/
 
   constructor(private http: HttpClient) { }
 
   generateClient(generateReqDTO: GenerateRequestDTO): Observable<any> {
 
-    var subUrl = 'generate';
-
-    var url = this.baseUrl + subUrl;
+    var url = this.baseUrl;
 
     return this.http.post(url, generateReqDTO, {observe: 'response'});
   }
 
   getFileUrl(generateResponse: GenerateResponseDTO): Observable<any> {
-    return this.http.post(this.baseUrl + "generate/zip", generateResponse, {observe: 'response'});
+    return this.http.post(this.baseUrl + "zip", generateResponse, {observe: 'response'});
+  }
+
+  runHerokuService(): Observable<any> {
+    return this.http.get(this.baseUrl + 'runService', {observe: 'response'});
   }
 }

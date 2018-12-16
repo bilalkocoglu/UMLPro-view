@@ -7,6 +7,7 @@ import {DependencyManagementService} from '../../services/dependency-management.
 import {DOCUMENT} from '@angular/common';
 import {Dependency} from '../../dto/Dependency';
 import {Toast, ToastrService} from "ngx-toastr";
+import {ApiClientService} from "../../services/api-client.service";
 
 @Component({
   selector: 'abe-movable-area',
@@ -23,7 +24,8 @@ export class MovableAreaComponent {
   constructor(private tableManagement: TableManagementService,
               private dependencyManagement: DependencyManagementService,
               private elementRef: ElementRef,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private apiClient: ApiClientService) {
     this.tableManagement.tableChange.subscribe((tables) => {
       this.tables = tables;
     });
@@ -33,6 +35,8 @@ export class MovableAreaComponent {
     });
 
     this.dependencyManagement.depencencyIsActive.subscribe((val) => this.dependencyStatusChange(val));
+
+    this.apiClient.runHerokuService().subscribe();    //herokuda servisin çalıştırılması için !
   }
 
   sendTables() {

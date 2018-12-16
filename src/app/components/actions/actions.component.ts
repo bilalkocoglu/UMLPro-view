@@ -179,8 +179,8 @@ export class ActionsComponent {
           );
           },
         error2 => {
-          console.log(error2);
-          this.loading = true;
+          this.toastr.error(error2, 'Generate Error');
+          this.loading = false;
         }
       );
     }
